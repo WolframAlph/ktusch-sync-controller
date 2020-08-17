@@ -2,7 +2,7 @@
   <v-app>
     <v-dialog v-model="dialog" persistent max-width="500px" min-width="360px">
       <div>
-        <v-tabs show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
+        <v-tabs show-arrows background-color="primary accent-4" icons-and-text dark grow>
           <v-tabs-slider color="deep-purple accent-4"></v-tabs-slider>
           <v-tab>
             <v-icon large>mdi-account</v-icon>
@@ -26,7 +26,10 @@
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="12">
-                      <v-btn x-large block :disabled="!valid" color="success" @click="validate"> Login </v-btn>
+                      <v-btn x-large block :disabled="!valid"
+
+
+                             color="primary" @click="validate"> Login </v-btn>
                     </v-col>
                   </v-row>
                 </v-form>

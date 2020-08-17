@@ -1,4 +1,5 @@
 <template>
+
   <router-view></router-view>
 </template>
 
@@ -12,6 +13,7 @@ export default {
 <style>
   html {
     height: 100%;
+    font-family: Roboto,sans-serif;
   }
   body {
     height: 100%;

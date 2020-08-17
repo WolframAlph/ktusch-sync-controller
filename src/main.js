@@ -3,6 +3,8 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import store from './store'
 import router from "./router";
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
 
