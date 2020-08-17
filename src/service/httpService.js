@@ -4,7 +4,7 @@ import store from '../store'
 
 
 export const syncClient = axios.create({
-    baseURL: 'http://ktusch-sync:5000',
+    baseURL: 'http://ktusch-sync.cloudeepi.com:5000',
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
