@@ -17,6 +17,8 @@ syncClient.interceptors.request.use(
         const data = localStorage.getItem("user");
         if (data) {
             config.headers.common["Authorization"] = JSON.parse(data).token;
+        } else {
+            config.headers.common["Authorization"] = ''
         }
         return config;
     },
@@ -54,14 +56,14 @@ export default {
     },
 
     getSyncInfo() {
-        return syncClient.get(`/status`)
+        return syncClient.get(`/synchronization`)
     },
 
     startSync() {
-        return syncClient.get('/start')
+        return syncClient.post('/synchronization')
     },
 
     stopSync() {
-        return syncClient.post('/stop')
+        return syncClient.delete('/synchronization')
     }
 }

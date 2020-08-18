@@ -55,7 +55,7 @@
                 </v-list-item>
 
                 <v-card-actions>
-                  <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
+                  <v-btn :loading="loadingBtn" :style="{left: '50%', transform:'translateX(-50%)'}" fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
                     <v-icon color="white" size="40">mdi-{{resp.alive ? 'pause' : 'play'}}</v-icon>
                   </v-btn>
                 </v-card-actions>
@@ -112,7 +112,7 @@
         name: "Controller",
 
         created() {
-            setInterval(() => {
+            this.statusCheck = setInterval(() => {
                 httpService.getSyncInfo().then((resp) => {
                     this.resp = resp.data
                     this.loading = false
@@ -124,6 +124,7 @@
             return {
                 resp: '',
                 loading: true,
+                loadingBtn: false,
                 transition: 'fade-transition',
                 transitions: [
                     {
@@ -145,15 +146,20 @@
         methods: {
             logout() {
                 localStorage.removeItem('user')
+                window.clearInterval(this.statusCheck)
                 this.$router.push('/')
             },
 
             async startSync() {
+                this.loadingBtn = true
                 await httpService.startSync()
+                this.loadingBtn = false
             },
 
             async stopSync() {
+                this.loadingBtn = true
                 await httpService.stopSync()
+                this.loadingBtn = false
             }
         }
     }
