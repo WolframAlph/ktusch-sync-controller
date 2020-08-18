@@ -30,11 +30,11 @@
                     height="200px"
                     src="../assets/qnSFzY8.jpg"
                 >
-                  <v-card-title>Sync Status</v-card-title>
+                  <v-card-title>Service Status</v-card-title>
                 </v-img>
                 <v-list-item three-line>
                   <v-list-item-content>
-                    <div class="overline">Ktusch-Sync</div>
+                    <div class="overline">Ktusch-Sync: {{alive ? 'Running' : 'Dead'}}</div>
                     <v-container>
                       <v-row>
                         <v-col>
@@ -42,10 +42,15 @@
                             <v-tooltip top>
                               <template v-slot:activator="{ on }">
                                 <v-toolbar-title v-on="on">
-                                  <v-icon size="50" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
+                                  <span v-if="alive">
+                                    <i
+                                       style="font-size: 60px; color: darkred;"
+                                       class="fas fa-heartbeat blink"
+                                    ></i>
+                                  </span>
                                 </v-toolbar-title>
                               </template>
-                              <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
+                              <span>{{alive ? 'Alive': 'Dead'}}</span>
                             </v-tooltip>
                           </v-row>
                         </v-col>
@@ -55,8 +60,16 @@
                 </v-list-item>
 
                 <v-card-actions>
-                  <v-btn :loading="loadingBtn" :style="{left: '50%', transform:'translateX(-50%)'}" fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
-                    <v-icon color="white" size="40">mdi-{{resp.alive ? 'pause' : 'play'}}</v-icon>
+                  <v-btn
+                      :loading="loadingBtn"
+                      :style="{left: '50%', transform:'translateX(-50%)'}"
+                      fab color="pink"
+                      left
+                      bottom
+                      absolute
+                      @click="alive ? stopSync() : startSync()"
+                  >
+                    <v-icon color="white" size="40">mdi-{{alive ? 'pause' : 'play'}}</v-icon>
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -114,7 +127,7 @@
         created() {
             this.statusCheck = setInterval(() => {
                 httpService.getSyncInfo().then((resp) => {
-                    this.resp = resp.data
+                    this.alive = resp.data.alive
                     this.loading = false
                 })
             }, 1000)
@@ -122,9 +135,10 @@
 
         data() {
             return {
-                resp: '',
+                alive: false,
                 loading: true,
                 loadingBtn: false,
+                heartClass: '',
                 transition: 'fade-transition',
                 transitions: [
                     {
