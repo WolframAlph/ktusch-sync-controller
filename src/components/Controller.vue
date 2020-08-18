@@ -8,7 +8,7 @@
         <i class="fas fa-sign-out-alt"></i>
       </v-btn>
     </v-app-bar>
-    <v-content>
+    <v-content style="margin-top: 100px;">
       <v-container>
         <v-row>
           <v-col>
@@ -30,20 +30,20 @@
                     height="200px"
                     src="../assets/qnSFzY8.jpg"
                 >
-                  <v-card-title>Service Status</v-card-title>
+                  <v-card-title>Heartbeat</v-card-title>
                 </v-img>
                 <v-list-item three-line>
                   <v-list-item-content>
                     <div class="overline mb-4">Ktusch-Sync</div>
                     <v-row>
                       <v-col>
-                        <v-list-item-title class="headline mb-1">Synchronization Status:</v-list-item-title>
+                        <v-list-item-title class="headline mb-1">Service Status:</v-list-item-title>
                       </v-col>
                       <v-col>
                         <v-tooltip top>
                           <template v-slot:activator="{ on }">
                             <v-toolbar-title v-on="on">
-                              <v-icon size="35" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
+                              <v-icon size="30" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
                             </v-toolbar-title>
                           </template>
                           <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
@@ -57,6 +57,44 @@
                   <v-btn @click="startSync" :disabled="resp.alive" text dark>Start</v-btn>
                   <v-btn @click="stopSync" :disabled="!resp.alive" text dark>Stop</v-btn>
                 </v-card-actions>
+              </v-card>
+            </v-skeleton-loader>
+          </v-col>
+          <v-col>
+            <v-skeleton-loader
+                :loading="loading"
+                :transition="transition"
+                type="card"
+                dark
+                width="400"
+            >
+              <v-card
+                  dark
+                  class="mx-auto"
+                  max-width="400"
+                  elevation="20"
+              >
+                <v-img
+                    class="white--text align-end"
+                    height="200px"
+                    src="../assets/textbox-D-data-stats-448x233.jpg"
+
+                >
+                  <v-card-title style="color: black">Service Stats</v-card-title>
+                </v-img>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <div class="overline mb-4">Ktusch-Sync</div>
+                    <v-row>
+                      <v-col>
+                        <v-list-item-title class="headline mb-1"></v-list-item-title>
+                      </v-col>
+                      <v-col>
+
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-list-item>
               </v-card>
             </v-skeleton-loader>
           </v-col>
@@ -161,7 +199,7 @@
     animation: blinker .6s cubic-bezier(0.9, 0, 1, 1) infinite alternate;
     vertical-align: baseline;
     position: relative;
-    bottom: 5px;
+    bottom: 2px;
     color: lightseagreen;
   }
 </style>
