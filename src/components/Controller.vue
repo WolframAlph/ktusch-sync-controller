@@ -55,16 +55,9 @@
                 </v-list-item>
 
                 <v-card-actions>
-                  <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                      <v-toolbar-title v-on="on">
-                        <v-btn fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
-                          <v-icon color="white" size="40">mdi-{{resp.alive ? 'pause' : 'play'}}</v-icon>
-                        </v-btn>
-                      </v-toolbar-title>
-                    </template>
-                    <span>{{resp.alive ? 'Stop': 'Start'}}</span>
-                  </v-tooltip>
+                  <v-btn :style="{left: '50%', transform:'translateX(-50%)'}" fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
+                    <v-icon color="white" size="40">mdi-{{resp.alive ? 'pause' : 'play'}}</v-icon>
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-skeleton-loader>
