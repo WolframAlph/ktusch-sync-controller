@@ -8,7 +8,7 @@
         <i class="fas fa-sign-out-alt"></i>
       </v-btn>
     </v-app-bar>
-    <v-content style="margin-top: 100px;">
+    <v-content style="margin-top: 50px;">
       <v-container>
         <v-row>
           <v-col>
@@ -21,7 +21,7 @@
             >
               <v-card
                   dark
-                  class="mx-auto"
+                  class="mx-auto mb-4"
                   max-width="400"
                   elevation="20"
               >
@@ -30,36 +30,46 @@
                     height="200px"
                     src="../assets/qnSFzY8.jpg"
                 >
-                  <v-card-title>Heartbeat</v-card-title>
+                  <v-card-title>Sync Status</v-card-title>
                 </v-img>
                 <v-list-item three-line>
                   <v-list-item-content>
-                    <div class="overline mb-4">Ktusch-Sync</div>
-                    <v-row>
-                      <v-col>
-                        <v-list-item-title class="headline mb-1">Service Status:</v-list-item-title>
-                      </v-col>
-                      <v-col>
-                        <v-tooltip top>
-                          <template v-slot:activator="{ on }">
-                            <v-toolbar-title v-on="on">
-                              <v-icon size="30" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
-                            </v-toolbar-title>
-                          </template>
-                          <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
-                        </v-tooltip>
-                      </v-col>
-                    </v-row>
+                    <div class="overline">Ktusch-Sync</div>
+                    <v-container>
+                      <v-row>
+                        <v-col>
+                          <v-row justify="center">
+                            <v-tooltip top>
+                              <template v-slot:activator="{ on }">
+                                <v-toolbar-title v-on="on">
+                                  <v-icon size="50" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
+                                </v-toolbar-title>
+                              </template>
+                              <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
+                            </v-tooltip>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-container>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-card-actions>
-                  <v-btn @click="startSync" :disabled="resp.alive" text dark>Start</v-btn>
-                  <v-btn @click="stopSync" :disabled="!resp.alive" text dark>Stop</v-btn>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <v-toolbar-title v-on="on">
+                        <v-btn fab color="pink" left bottom absolute @click="resp.alive ? stopSync() : startSync()">
+                          <v-icon color="white" size="40">mdi-{{resp.alive ? 'pause' : 'play'}}</v-icon>
+                        </v-btn>
+                      </v-toolbar-title>
+                    </template>
+                    <span>{{resp.alive ? 'Stop': 'Start'}}</span>
+                  </v-tooltip>
                 </v-card-actions>
               </v-card>
             </v-skeleton-loader>
           </v-col>
+
           <v-col>
             <v-skeleton-loader
                 :loading="loading"
@@ -90,7 +100,6 @@
                         <v-list-item-title class="headline mb-1"></v-list-item-title>
                       </v-col>
                       <v-col>
-
                       </v-col>
                     </v-row>
                   </v-list-item-content>
