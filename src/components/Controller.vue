@@ -1,6 +1,6 @@
 <template>
-  <v-app style="background-color: #f5f5f5">
-    <v-app-bar app color="primary" dark>
+  <v-app style="background-color: #424242">
+    <v-app-bar app dark>
       <v-toolbar-title>Dashboard</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="logout" text>
@@ -9,7 +9,59 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <span>{{resp}}</span>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-skeleton-loader
+                :loading="loading"
+                :transition="transition"
+                type="card"
+                dark
+                width="400"
+            >
+              <v-card
+                  dark
+                  class="mx-auto"
+                  max-width="400"
+                  elevation="20"
+              >
+                <v-img
+                    class="white--text align-end"
+                    height="200px"
+                    src="../assets/qnSFzY8.jpg"
+                >
+                  <v-card-title>Service Status</v-card-title>
+                </v-img>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <div class="overline mb-4">Ktusch-Sync</div>
+                    <v-row>
+                      <v-col>
+                        <v-list-item-title class="headline mb-1">Synchronization Status:</v-list-item-title>
+                      </v-col>
+                      <v-col>
+                        <v-tooltip top>
+                          <template v-slot:activator="{ on }">
+                            <v-toolbar-title v-on="on">
+                              <v-icon :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
+                            </v-toolbar-title>
+                          </template>
+                          <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
+                        </v-tooltip>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-card-actions>
+                  <v-btn :disabled="resp.alive" text dark>Start</v-btn>
+                  <v-btn :disabled="!resp.alive" text dark>Stop</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -25,7 +77,7 @@
                     this.resp = resp.data
                     this.loading = false
                 })
-            }, 1500)
+            }, 2500)
         },
 
         data() {
@@ -64,8 +116,8 @@
   $white: #fff;
 
   @keyframes blinker {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from { transform: scale(1); }
+    to { transform: scale(0.5); }
   }
 
 
@@ -100,7 +152,6 @@
   .blink {
     animation: blinker .6s cubic-bezier(0.9, 0, 1, 1) infinite alternate;
     font-size: 20px;
-    margin-right: 5px;
     vertical-align: baseline;
     color: lightseagreen;
   }

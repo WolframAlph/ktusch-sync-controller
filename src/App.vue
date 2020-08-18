@@ -20,6 +20,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5
+    background-color: #424242;
   }
 </style>
