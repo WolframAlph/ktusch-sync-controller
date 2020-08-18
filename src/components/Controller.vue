@@ -43,7 +43,7 @@
                         <v-tooltip top>
                           <template v-slot:activator="{ on }">
                             <v-toolbar-title v-on="on">
-                              <v-icon :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
+                              <v-icon size="35" :class="{'blink': resp.alive}" color="pink">mdi-heart</v-icon>
                             </v-toolbar-title>
                           </template>
                           <span>{{resp.alive ? 'Alive': 'Dead'}}</span>
@@ -159,8 +159,9 @@
 
   .blink {
     animation: blinker .6s cubic-bezier(0.9, 0, 1, 1) infinite alternate;
-    font-size: 20px;
     vertical-align: baseline;
+    position: relative;
+    bottom: 5px;
     color: lightseagreen;
   }
 </style>
