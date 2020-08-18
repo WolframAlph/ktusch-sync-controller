@@ -54,8 +54,8 @@
                 </v-list-item>
 
                 <v-card-actions>
-                  <v-btn :disabled="resp.alive" text dark>Start</v-btn>
-                  <v-btn :disabled="!resp.alive" text dark>Stop</v-btn>
+                  <v-btn @click="startSync" :disabled="resp.alive" text dark>Start</v-btn>
+                  <v-btn @click="stopSync" :disabled="!resp.alive" text dark>Stop</v-btn>
                 </v-card-actions>
               </v-card>
             </v-skeleton-loader>
@@ -72,17 +72,17 @@
         name: "Controller",
 
         created() {
-            setTimeout(() => {
+            setInterval(() => {
                 httpService.getSyncInfo().then((resp) => {
                     this.resp = resp.data
                     this.loading = false
                 })
-            }, 2500)
+            }, 1000)
         },
 
         data() {
             return {
-                resp: 'wait',
+                resp: '',
                 loading: true,
                 transition: 'fade-transition',
                 transitions: [
@@ -106,6 +106,14 @@
             logout() {
                 localStorage.removeItem('user')
                 this.$router.push('/')
+            },
+
+            async startSync() {
+                await httpService.startSync()
+            },
+
+            async stopSync() {
+                await httpService.stopSync()
             }
         }
     }

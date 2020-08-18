@@ -54,7 +54,14 @@ export default {
     },
 
     getSyncInfo() {
-        console.log(syncClient.defaults.headers)
         return syncClient.get(`/status`)
+    },
+
+    startSync() {
+        return syncClient.get('/start')
+    },
+
+    stopSync() {
+        return syncClient.post('/stop')
     }
 }
