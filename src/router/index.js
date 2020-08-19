@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../components/Login";
-import Controller from "../components/Controller";
+import Controller from "../components/Dashboard";
 
 Vue.use(VueRouter)
 

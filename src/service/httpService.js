@@ -65,5 +65,13 @@ export default {
 
     stopSync() {
         return syncClient.delete('/synchronization')
+    },
+
+    getDbBackupInfo() {
+        return axios.get('https://api.github.com/repos/WolframAlph/ktusch-sync/actions/workflows/2249118/runs')
+    },
+
+    getDeployInfo() {
+        return axios.get('https://api.github.com/repos/WolframAlph/ktusch-sync/actions/workflows/2207783/runs')
     }
 }
