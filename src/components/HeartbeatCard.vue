@@ -1,6 +1,6 @@
 <template>
-  <v-skeleton-loader :loading="loading" type="card" dark>
-    <v-card dark class="mx-auto mb-4" elevation="20">
+  <v-skeleton-loader :loading="loading" type="card">
+    <v-card hover max-width="500" class="mx-auto mb-4" elevation="20">
       <v-img class="white--text align-end" height="200px" src="../assets/qnSFzY8.jpg">
         <v-card-title>Service Status</v-card-title>
       </v-img>

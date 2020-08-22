@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark>
+  <v-app-bar app>
     <v-toolbar-title>Dashboard</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn @click="logout" text>

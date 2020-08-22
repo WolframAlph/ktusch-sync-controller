@@ -1,12 +1,15 @@
 <template>
-  <v-app dark>
+  <v-app>
     <Toolbar />
-    <v-main style="background-color: #424242">
+    <v-main>
       <v-container>
+        <h1>Time {{alive ? 'up' : 'down'}}: {{alive ? timeUp : timeDown}}</h1>
         <v-row>
-          <v-col cols="12" sm="5">
+          <v-col>
             <HeartbeatCard :alive="alive" :loading="loading"/>
           </v-col>
+        </v-row>
+        <v-row>
           <v-col>
             <EventTimeline/>
           </v-col>
@@ -36,12 +39,14 @@
                 httpService.getSyncInfo().then((resp) => {
                     this.alive = resp.data.alive
                     this.loading = false
+                    this.timeUp = this.countdown(resp.data.time_up)
+                    this.timeDown = this.countdown(resp.data.time_down)
                 })
             }, 1000)
+              this.$vuetify.theme.dark = true
         },
 
         beforeDestroy() {
-            console.log('destroyed')
             clearInterval(this.statusCheck)
         },
 
@@ -50,9 +55,40 @@
                 lastDbBackupStatus: null,
                 lastDbBackupDate: null,
                 alive: false,
-                loading: true
+                loading: true,
+                timeUp: null,
+                timeDown: null
             }
         },
+
+        methods: {
+            countdown(s) {
+                s = Math.floor(s)
+              const d = Math.floor(s / (3600 * 24));
+
+              s  -= d * 3600 * 24;
+
+              const h   = Math.floor(s / 3600);
+
+              s  -= h * 3600;
+
+              const m = Math.floor(s / 60);
+
+              s  -= m * 60;
+
+              const tmp = [];
+
+              (d) && tmp.push(d + 'd');
+
+              (d || h) && tmp.push(h + 'h');
+
+              (d || h || m) && tmp.push(m + 'm');
+
+              tmp.push(s + 's');
+
+              return tmp.join(' ');
+          }
+        }
     }
 </script>
 

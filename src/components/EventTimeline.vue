@@ -4,17 +4,26 @@
     <v-timeline-item
         v-for="(item, i) in timelineInfo"
         :key="i"
-        dark
+        :color="item.status === 'success' ? 'green': 'red'"
         large
     >
       <template v-slot:icon>
-        <v-icon dark>{{item.icon}}</v-icon>
+        <v-icon>{{item.icon}}</v-icon>
       </template>
       <span slot="opposite">{{item.date}}</span>
       <TimelineCard :title="item.title" :status="item.status">
         <v-card-text v-if="item.hasOwnProperty('deployNumber')">
           Deploy Number: {{item.deployNumber}}
         </v-card-text>
+        <v-row v-if="item.hasOwnProperty('contacts')">
+          <v-col>
+            <v-row justify="center">
+              <div style="font-size: 25px">
+                {{item.contacts}}
+              </div>
+            </v-row>
+          </v-col>
+        </v-row>
       </TimelineCard>
     </v-timeline-item>
   </v-timeline>
@@ -52,6 +61,16 @@
                 icon: 'mdi-cloud-upload',
                 title: 'Last service deploy',
                 deployNumber: response.data.workflow_runs[0].run_number
+            })
+
+            response = await httpService.getContactsCount()
+
+            this.timelineInfo.push({
+                date: new Date().toUTCString(),
+                icon: 'mdi-sync',
+                title: 'Contacts synchronized',
+                contacts: response.data.contacts,
+                status: 'success'
             })
 
             this.timelineInfo.sort(function(a,b){

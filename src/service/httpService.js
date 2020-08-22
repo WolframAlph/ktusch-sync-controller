@@ -4,7 +4,7 @@ import store from '../store'
 
 
 export const syncClient = axios.create({
-    baseURL: 'http://ktusch-sync.cloudeepi.com:5000',
+    baseURL: 'http://localhost:5000',
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -65,6 +65,10 @@ export default {
 
     stopSync() {
         return syncClient.delete('/synchronization')
+    },
+
+    getContactsCount() {
+        return syncClient.get('/contacts')
     },
 
     getDbBackupInfo() {

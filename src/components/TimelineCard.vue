@@ -1,11 +1,9 @@
 <template>
-  <v-card elevation="15" dark>
+  <v-card elevation="15" hover>
     <v-card-title>
       {{title}}
     </v-card-title>
-    <v-card-text>
-      Status : {{status}}
-    </v-card-text>
+
     <slot></slot>
   </v-card>
 </template>
